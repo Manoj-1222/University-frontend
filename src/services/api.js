@@ -1,9 +1,30 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+// Clean and normalize the API base URL
+const cleanApiUrl = (baseUrl) => {
+  if (!baseUrl) return 'http://localhost:5000/api';
+  
+  // Remove trailing slash if present
+  let cleaned = baseUrl.replace(/\/+$/, '');
+  
+  // Ensure it starts with http:// or https://
+  if (!cleaned.startsWith('http://') && !cleaned.startsWith('https://')) {
+    cleaned = 'https://' + cleaned.replace(/^\/+/, '');
+  }
+  
+  return cleaned;
+};
+
+const API_BASE_URL = cleanApiUrl(import.meta.env.VITE_API_BASE_URL);
 
 // Create authentication header
 const getAuthHeader = () => {
   const token = localStorage.getItem('token');
   return token ? { 'Authorization': `Bearer ${token}` } : {};
+};
+
+// Build API URL with proper path joining
+const buildApiUrl = (path) => {
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  return `${API_BASE_URL}${cleanPath}`;
 };
 
 // Generic API call helper
@@ -34,60 +55,62 @@ const apiCall = async (url, options = {}) => {
 // Authentication API
 export const authApi = {
   login: async ({ email, password }) => {
-    console.log('🔄 API: Making login request to:', `${API_BASE_URL}/auth/login`);
-    return await apiCall(`${API_BASE_URL}/auth/login`, {
+    const loginUrl = buildApiUrl('/auth/login');
+    console.log('🔄 API: Making login request to:', loginUrl);
+    return await apiCall(loginUrl, {
       method: 'POST',
       body: JSON.stringify({ email, password })
     });
   },
   
   register: async (userData) => {
-    console.log('🔄 API: Making register request to:', `${API_BASE_URL}/auth/register`);
-    return await apiCall(`${API_BASE_URL}/auth/register`, {
+    const registerUrl = buildApiUrl('/auth/register');
+    console.log('🔄 API: Making register request to:', registerUrl);
+    return await apiCall(registerUrl, {
       method: 'POST',
       body: JSON.stringify(userData)
     });
   },
   
   getMe: async () => {
-    return await apiCall(`${API_BASE_URL}/auth/me`);
+    return await apiCall(buildApiUrl('/auth/me'));
   }
 };
 
 // Student API
 export const studentApi = {
   getProfile: async () => {
-    return await apiCall(`${API_BASE_URL}/students/profile`);
+    return await apiCall(buildApiUrl('/students/profile'));
   },
   
   updateProfile: async (profileData) => {
-    return await apiCall(`${API_BASE_URL}/students/profile`, {
+    return await apiCall(buildApiUrl('/students/profile'), {
       method: 'PUT',
       body: JSON.stringify(profileData)
     });
   },
   
   getAttendance: async () => {
-    return await apiCall(`${API_BASE_URL}/students/attendance`);
+    return await apiCall(buildApiUrl('/students/attendance'));
   },
   
   getFees: async () => {
-    return await apiCall(`${API_BASE_URL}/students/fees`);
+    return await apiCall(buildApiUrl('/students/fees'));
   },
   
   updateFees: async (feeData) => {
-    return await apiCall(`${API_BASE_URL}/students/fees`, {
+    return await apiCall(buildApiUrl('/students/fees'), {
       method: 'PUT',
       body: JSON.stringify(feeData)
     });
   },
   
   getPlacement: async () => {
-    return await apiCall(`${API_BASE_URL}/students/placement`);
+    return await apiCall(buildApiUrl('/students/placement'));
   },
   
   updatePlacement: async (placementData) => {
-    return await apiCall(`${API_BASE_URL}/students/placement`, {
+    return await apiCall(buildApiUrl('/students/placement'), {
       method: 'PUT',
       body: JSON.stringify(placementData)
     });
@@ -97,27 +120,27 @@ export const studentApi = {
 // University Information API
 export const universityApi = {
   getAbout: async () => {
-    return await apiCall(`${API_BASE_URL}/university/about`);
+    return await apiCall(buildApiUrl('/university/about'));
   },
   
   getCourses: async () => {
-    return await apiCall(`${API_BASE_URL}/university/courses`);
+    return await apiCall(buildApiUrl('/university/courses'));
   },
   
   getFaculty: async () => {
-    return await apiCall(`${API_BASE_URL}/university/faculty`);
+    return await apiCall(buildApiUrl('/university/faculty'));
   },
   
   getPlacements: async () => {
-    return await apiCall(`${API_BASE_URL}/university/placements`);
+    return await apiCall(buildApiUrl('/university/placements'));
   },
   
   getEvents: async () => {
-    return await apiCall(`${API_BASE_URL}/university/events`);
+    return await apiCall(buildApiUrl('/university/events'));
   },
   
   getContact: async () => {
-    return await apiCall(`${API_BASE_URL}/university/contact`);
+    return await apiCall(buildApiUrl('/university/contact'));
   }
 };
 
@@ -125,7 +148,8 @@ export const universityApi = {
 export const admissionsApi = {
   submitApplication: async (formData) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/admissions/apply`, {
+      const applyUrl = buildApiUrl('/admissions/apply');
+      const response = await fetch(applyUrl, {
         method: 'POST',
         headers: {
           ...getAuthHeader()
@@ -148,21 +172,21 @@ export const admissionsApi = {
   },
   
   getApplication: async () => {
-    return await apiCall(`${API_BASE_URL}/admissions/application`);
+    return await apiCall(buildApiUrl('/admissions/application'));
   },
   
   getAllApplications: async () => {
-    return await apiCall(`${API_BASE_URL}/admissions/all`);
+    return await apiCall(buildApiUrl('/admissions/all'));
   }
 };
 
 // Admin API
 export const adminApi = {
   getDashboard: async () => {
-    return await apiCall(`${API_BASE_URL}/admin/dashboard`);
+    return await apiCall(buildApiUrl('/admin/dashboard'));
   },
   
   getAnalytics: async () => {
-    return await apiCall(`${API_BASE_URL}/admin/analytics`);
+    return await apiCall(buildApiUrl('/admin/analytics'));
   }
 };
