@@ -170,7 +170,7 @@ function Admissions() {
                     
                     // Submit using our API service
                     admissionsApi.submitApplication(formData)
-                      .then(data => {
+                      .then(() => {
                         alert('Application submitted successfully! You will receive a confirmation email shortly.');
                         resetForm();
                       })
