@@ -8,8 +8,6 @@ function Profile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('personal');
-  const [saving, setSaving] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
   const { logout, user } = useAuth();
 
@@ -36,25 +34,6 @@ function Profile() {
       navigate('/login');
     } catch (error) {
       console.error('Logout error:', error);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setSaving(true);
-      const formData = new FormData(e.target);
-      const updatedData = Object.fromEntries(formData);
-      
-      await studentApi.updateProfile(updatedData);
-      setSuccessMessage('Profile updated successfully!');
-      setTimeout(() => setSuccessMessage(''), 3000);
-      fetchProfile();
-    } catch (err) {
-      setError('Failed to update profile');
-      console.error('Error updating profile:', err);
-    } finally {
-      setSaving(false);
     }
   };
 
@@ -92,7 +71,7 @@ function Profile() {
                   <i className="fas fa-user-circle me-2 text-primary"></i>
                   My Profile
                 </h1>
-                <p className="text-muted mb-0">Manage your personal information and academic details</p>
+                <p className="text-muted mb-0">View your personal information and academic details</p>
               </div>
               <div className="d-flex gap-2">
                 <button
@@ -230,125 +209,119 @@ function Profile() {
                   <i className="fas fa-user me-2 text-primary"></i>
                   Personal Information
                 </h5>
-                <form onSubmit={handleSubmit}>
-                  <div className="row">
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label fw-semibold">
-                        <i className="fas fa-user me-2 text-primary"></i>
-                        Full Name
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="name"
-                        placeholder="Enter your full name"
-                        defaultValue={profile?.name}
-                        required
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label fw-semibold">
-                        <i className="fas fa-envelope me-2 text-primary"></i>
-                        Email Address
-                      </label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        name="email"
-                        placeholder="Enter your email"
-                        defaultValue={profile?.email}
-                        required
-                      />
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <div className="card bg-light border-0">
+                      <div className="card-body">
+                        <h6 className="card-title text-primary mb-2">
+                          <i className="fas fa-user me-2"></i>Full Name
+                        </h6>
+                        <p className="card-text h5 mb-0">{profile?.name || 'Not Available'}</p>
+                      </div>
                     </div>
                   </div>
-
-                  <div className="row">
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label fw-semibold">
-                        <i className="fas fa-id-card me-2 text-primary"></i>
-                        Roll Number
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        defaultValue={profile?.rollNo}
-                        disabled
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label fw-semibold">
-                        <i className="fas fa-phone me-2 text-primary"></i>
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        className="form-control"
-                        name="contact"
-                        placeholder="Enter your phone number"
-                        defaultValue={profile?.contact}
-                      />
+                  <div className="col-md-6 mb-3">
+                    <div className="card bg-light border-0">
+                      <div className="card-body">
+                        <h6 className="card-title text-primary mb-2">
+                          <i className="fas fa-envelope me-2"></i>Email Address
+                        </h6>
+                        <p className="card-text h5 mb-0">{profile?.email || 'Not Available'}</p>
+                      </div>
                     </div>
                   </div>
+                </div>
 
-                  <div className="row">
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label fw-semibold">
-                        <i className="fas fa-calendar me-2 text-primary"></i>
-                        Date of Birth
-                      </label>
-                      <input
-                        type="date"
-                        className="form-control"
-                        name="dateOfBirth"
-                        defaultValue={profile?.dateOfBirth ? new Date(profile.dateOfBirth).toISOString().split('T')[0] : ''}
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label fw-semibold">
-                        <i className="fas fa-venus-mars me-2 text-primary"></i>
-                        Gender
-                      </label>
-                      <select className="form-select" name="gender" defaultValue={profile?.gender || ''}>
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                      </select>
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <div className="card bg-light border-0">
+                      <div className="card-body">
+                        <h6 className="card-title text-primary mb-2">
+                          <i className="fas fa-id-card me-2"></i>Roll Number
+                        </h6>
+                        <p className="card-text h5 mb-0">{profile?.rollNo || 'Not Available'}</p>
+                      </div>
                     </div>
                   </div>
-
-                  <div className="mb-3">
-                    <label className="form-label fw-semibold">
-                      <i className="fas fa-map-marker-alt me-2 text-primary"></i>
-                      Address
-                    </label>
-                    <textarea
-                      className="form-control"
-                      rows="3"
-                      name="address"
-                      placeholder="Enter your address"
-                      defaultValue={profile?.address?.street ? `${profile.address.street}, ${profile.address.city}, ${profile.address.state} ${profile.address.zipCode}` : ''}
-                    ></textarea>
+                  <div className="col-md-6 mb-3">
+                    <div className="card bg-light border-0">
+                      <div className="card-body">
+                        <h6 className="card-title text-primary mb-2">
+                          <i className="fas fa-phone me-2"></i>Phone Number
+                        </h6>
+                        <p className="card-text h5 mb-0">{profile?.contact || profile?.phone || 'Not Available'}</p>
+                      </div>
+                    </div>
                   </div>
+                </div>
 
-                  {error && <div className="alert alert-danger">{error}</div>}
-                  {successMessage && <div className="alert alert-success">{successMessage}</div>}
-
-                  <div className="d-flex gap-3 justify-content-end">
-                    <button
-                      type="submit"
-                      className="btn btn-primary px-4 py-2"
-                      disabled={saving}
-                    >
-                      {saving ? (
-                        <span className="spinner-border spinner-border-sm me-2"></span>
-                      ) : (
-                        <i className="fas fa-save me-2"></i>
-                      )}
-                      Save Changes
-                    </button>
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <div className="card bg-light border-0">
+                      <div className="card-body">
+                        <h6 className="card-title text-primary mb-2">
+                          <i className="fas fa-calendar me-2"></i>Date of Birth
+                        </h6>
+                        <p className="card-text h5 mb-0">
+                          {profile?.dateOfBirth ? new Date(profile.dateOfBirth).toLocaleDateString() : 'Not Available'}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </form>
+                  <div className="col-md-6 mb-3">
+                    <div className="card bg-light border-0">
+                      <div className="card-body">
+                        <h6 className="card-title text-primary mb-2">
+                          <i className="fas fa-venus-mars me-2"></i>Gender
+                        </h6>
+                        <p className="card-text h5 mb-0">{profile?.gender || 'Not Specified'}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <div className="card bg-light border-0">
+                      <div className="card-body">
+                        <h6 className="card-title text-primary mb-2">
+                          <i className="fas fa-building me-2"></i>Department
+                        </h6>
+                        <p className="card-text h5 mb-0">{profile?.department || 'Not Available'}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="card bg-light border-0">
+                      <div className="card-body">
+                        <h6 className="card-title text-primary mb-2">
+                          <i className="fas fa-calendar-alt me-2"></i>Academic Year
+                        </h6>
+                        <p className="card-text h5 mb-0">
+                          Year {profile?.year || 'N/A'}, Semester {profile?.semester || 'N/A'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-12 mb-3">
+                    <div className="card bg-light border-0">
+                      <div className="card-body">
+                        <h6 className="card-title text-primary mb-2">
+                          <i className="fas fa-map-marker-alt me-2"></i>Address
+                        </h6>
+                        <p className="card-text h5 mb-0">
+                          {profile?.address?.street ? 
+                            `${profile.address.street}, ${profile.address.city}, ${profile.address.state} ${profile.address.zipCode}` : 
+                            'Not Available'
+                          }
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
 
