@@ -13,7 +13,12 @@ const cleanApiUrl = (baseUrl) => {
   return cleaned;
 };
 
+// Debug environment variables
+console.log('🔍 Environment Debug:');
+console.log('Raw VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL);
+
 const API_BASE_URL = cleanApiUrl(import.meta.env.VITE_API_BASE_URL);
+console.log('Cleaned API_BASE_URL:', API_BASE_URL);
 
 // Create authentication header
 const getAuthHeader = () => {
@@ -24,7 +29,9 @@ const getAuthHeader = () => {
 // Build API URL with proper path joining
 const buildApiUrl = (path) => {
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  return `${API_BASE_URL}${cleanPath}`;
+  const finalUrl = `${API_BASE_URL}${cleanPath}`;
+  console.log('🔧 buildApiUrl:', { input: path, cleanPath, API_BASE_URL, finalUrl });
+  return finalUrl;
 };
 
 // Generic API call helper
