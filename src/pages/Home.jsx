@@ -70,7 +70,7 @@ function Home() {
             <img src={universityBg} className="d-block w-100 carousel-image" alt="University Campus" />
             <div className="carousel-caption d-md-block">
               <div className="hero-content">
-                <h1 className="display-4 fw-bold mb-3 text-contrast">Welcome to EduVerse University</h1>
+                <h1 className="display-4 fw-bold mb-3 text-contrast">Welcome to COE University</h1>
                 <p className="lead mb-4 text-contrast">Shaping tomorrow's leaders through excellence in education and innovation</p>
                 <button className="btn btn-light btn-lg px-5 py-3 rounded-pill" onClick={handleApplyNow}>
                   <i className="fas fa-graduation-cap me-2"></i>
@@ -123,7 +123,7 @@ function Home() {
           color: '#1f2937'
         }}>
           <h3 className="mb-3 fw-bold text-primary">Ready to Begin Your Journey?</h3>
-          <p className="mb-4 lead text-secondary">Join thousands of students who have transformed their lives at EduVerse University</p>
+          <p className="mb-4 lead text-secondary">Join thousands of students who have transformed their lives at COE University</p>
           <button className="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg" onClick={handleApplyNow}>
             <i className="fas fa-rocket me-2"></i>
             Apply Now - Fast Track

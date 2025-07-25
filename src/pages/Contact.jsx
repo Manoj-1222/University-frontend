@@ -33,7 +33,7 @@ function Contact() {
     {
       icon: 'fas fa-envelope',
       title: 'Email',
-      details: ['admissions@eduverse.edu', 'info@eduverse.edu'],
+      details: ['admissions@coe.edu', 'info@coe.edu'],
       color: 'text-info'
     },
     {
@@ -47,25 +47,25 @@ function Contact() {
   const departments = [
     {
       name: 'Admissions Office',
-      email: 'admissions@eduverse.edu',
+      email: 'admissions@coe.edu',
       phone: '+91-1234567890',
       description: 'For admission inquiries and application support'
     },
     {
       name: 'Academic Office',
-      email: 'academics@eduverse.edu',
+      email: 'academics@coe.edu',
       phone: '+91-1234567891',
       description: 'For academic queries and course information'
     },
     {
       name: 'Student Services',
-      email: 'student.services@eduverse.edu',
+      email: 'student.services@coe.edu',
       phone: '+91-1234567892',
       description: 'For student support and welfare services'
     },
     {
       name: 'Placement Cell',
-      email: 'placements@eduverse.edu',
+      email: 'placements@coe.edu',
       phone: '+91-1234567893',
       description: 'For career guidance and placement assistance'
     }

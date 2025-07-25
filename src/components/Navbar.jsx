@@ -19,7 +19,7 @@ function Navbar() {
           <div className="brand-icon me-2">
             <i className="fas fa-graduation-cap text-primary"></i>
           </div>
-          <span className="brand-text text-dark">EduVerse</span>
+          <span className="brand-text text-dark">COE University</span>
         </Link>
         
         <button 

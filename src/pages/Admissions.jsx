@@ -99,7 +99,7 @@ function Admissions() {
       {/* Header Section */}
       <div className="text-center mb-5">
         <h1 className="display-4 fw-bold mb-3">Admissions</h1>
-        <p className="lead text-muted">Join EduVerse University and begin your journey towards excellence</p>
+        <p className="lead text-muted">Join COE University and begin your journey towards excellence</p>
       </div>
 
       {/* Navigation Tabs */}

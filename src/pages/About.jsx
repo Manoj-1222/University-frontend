@@ -53,7 +53,7 @@ function About() {
       <div className="row align-items-center mb-5">
         <div className="col-lg-6 mb-4 mb-lg-0">
           <div className="about-content">
-            <h1 className="display-4 fw-bold mb-4">About EduVerse University</h1>
+            <h1 className="display-4 fw-bold mb-4">About COE University</h1>
             <p className="lead mb-4">
               Founded in 1965, our university has a rich tradition of academic excellence, innovation, and community service. We are committed to nurturing talent and fostering research that makes a difference in the world.
             </p>
@@ -150,7 +150,7 @@ function About() {
         <div className="col-12">
           <div className="card border-0 shadow-lg">
             <div className="card-header bg-gradient text-white text-center py-4">
-              <h2 className="mb-0">Why Choose EduVerse University?</h2>
+              <h2 className="mb-0">Why Choose COE University?</h2>
             </div>
             <div className="card-body p-5">
               <div className="row">
