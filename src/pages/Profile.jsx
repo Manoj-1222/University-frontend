@@ -18,8 +18,10 @@ function Profile() {
   const fetchProfile = async () => {
     try {
       setLoading(true);
-      const data = await studentApi.getProfile();
-      setProfile(data);
+      const response = await studentApi.getProfile();
+      console.log('Profile API Response:', response); // Debug log
+      // Extract the actual student data from the API response
+      setProfile(response.data || response);
     } catch (err) {
       setError('Failed to load profile');
       console.error('Error fetching profile:', err);
@@ -69,7 +71,7 @@ function Profile() {
               <div>
                 <h1 className="h3 mb-1">
                   <i className="fas fa-user-circle me-2 text-primary"></i>
-                  My Profile
+                  View Profile
                 </h1>
                 <p className="text-muted mb-0">View your personal information and academic details</p>
               </div>
@@ -249,7 +251,7 @@ function Profile() {
                         <h6 className="card-title text-primary mb-2">
                           <i className="fas fa-phone me-2"></i>Phone Number
                         </h6>
-                        <p className="card-text h5 mb-0">{profile?.contact || profile?.phone || 'Not Available'}</p>
+                        <p className="card-text h5 mb-0">{profile?.phone || 'Not Available'}</p>
                       </div>
                     </div>
                   </div>
@@ -306,18 +308,23 @@ function Profile() {
                 </div>
 
                 <div className="row">
-                  <div className="col-12 mb-3">
+                  <div className="col-md-6 mb-3">
                     <div className="card bg-light border-0">
                       <div className="card-body">
                         <h6 className="card-title text-primary mb-2">
-                          <i className="fas fa-map-marker-alt me-2"></i>Address
+                          <i className="fas fa-tint me-2"></i>Blood Group
                         </h6>
-                        <p className="card-text h5 mb-0">
-                          {profile?.address?.street ? 
-                            `${profile.address.street}, ${profile.address.city}, ${profile.address.state} ${profile.address.zipCode}` : 
-                            'Not Available'
-                          }
-                        </p>
+                        <p className="card-text h5 mb-0">{profile?.bloodGroup || 'Not Available'}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="card bg-light border-0">
+                      <div className="card-body">
+                        <h6 className="card-title text-primary mb-2">
+                          <i className="fas fa-briefcase me-2"></i>Placement Status
+                        </h6>
+                        <p className="card-text h5 mb-0">{profile?.placementStatus || 'Not Placed'}</p>
                       </div>
                     </div>
                   </div>
@@ -339,7 +346,7 @@ function Profile() {
                     <div className="card bg-primary bg-opacity-10 border-0">
                       <div className="card-body text-center">
                         <i className="fas fa-star text-primary mb-2" style={{fontSize: '2rem'}}></i>
-                        <h4 className="text-primary mb-1">{profile?.academic?.currentCGPA || 'N/A'}</h4>
+                        <h4 className="text-primary mb-1">{profile?.currentCGPA || 'N/A'}</h4>
                         <small className="text-muted">Current CGPA</small>
                       </div>
                     </div>
@@ -348,7 +355,7 @@ function Profile() {
                     <div className="card bg-success bg-opacity-10 border-0">
                       <div className="card-body text-center">
                         <i className="fas fa-book text-success mb-2" style={{fontSize: '2rem'}}></i>
-                        <h4 className="text-success mb-1">{profile?.academic?.totalCredits || 0}</h4>
+                        <h4 className="text-success mb-1">{profile?.totalCredits || 0}</h4>
                         <small className="text-muted">Credits Earned</small>
                       </div>
                     </div>
@@ -356,97 +363,56 @@ function Profile() {
                   <div className="col-md-3">
                     <div className="card bg-info bg-opacity-10 border-0">
                       <div className="card-body text-center">
-                        <i className="fas fa-trophy text-info mb-2" style={{fontSize: '2rem'}}></i>
-                        <h4 className="text-info mb-1">{profile?.academic?.grades?.length || 0}</h4>
-                        <small className="text-muted">Subjects</small>
+                        <i className="fas fa-graduation-cap text-info mb-2" style={{fontSize: '2rem'}}></i>
+                        <h4 className="text-info mb-1">Year {profile?.year || 'N/A'}</h4>
+                        <small className="text-muted">Current Year</small>
                       </div>
                     </div>
                   </div>
                   <div className="col-md-3">
                     <div className="card bg-warning bg-opacity-10 border-0">
                       <div className="card-body text-center">
-                        <i className="fas fa-exclamation-triangle text-warning mb-2" style={{fontSize: '2rem'}}></i>
-                        <h4 className="text-warning mb-1">{profile?.academic?.backlogs || 0}</h4>
-                        <small className="text-muted">Backlogs</small>
+                        <i className="fas fa-calendar-alt text-warning mb-2" style={{fontSize: '2rem'}}></i>
+                        <h4 className="text-warning mb-1">Sem {profile?.semester || 'N/A'}</h4>
+                        <small className="text-muted">Current Semester</small>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Grades Table */}
-                {profile?.academic?.grades && profile.academic.grades.length > 0 && (
-                  <div className="card border-0 shadow-sm">
-                    <div className="card-header bg-light">
-                      <h6 className="mb-0">
-                        <i className="fas fa-list me-2"></i>
-                        Grade Details
-                      </h6>
-                    </div>
-                    <div className="card-body p-0">
-                      <div className="table-responsive">
-                        <table className="table table-hover mb-0">
-                          <thead className="table-light">
-                            <tr>
-                              <th><i className="fas fa-book me-2"></i>Subject</th>
-                              <th><i className="fas fa-star me-2"></i>Grade</th>
-                              <th><i className="fas fa-coins me-2"></i>Credits</th>
-                              <th><i className="fas fa-calendar me-2"></i>Semester</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {profile.academic.grades.map((grade, index) => (
-                              <tr key={index}>
-                                <td className="fw-medium">{grade.subject}</td>
-                                <td>
-                                  <span className={`badge ${
-                                    ['A+', 'A', 'A-'].includes(grade.grade) ? 'bg-success' :
-                                    ['B+', 'B', 'B-'].includes(grade.grade) ? 'bg-primary' :
-                                    ['C+', 'C'].includes(grade.grade) ? 'bg-warning' :
-                                    'bg-danger'
-                                  }`}>
-                                    {grade.grade}
-                                  </span>
-                                </td>
-                                <td>{grade.credits}</td>
-                                <td>{grade.semester}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Attendance Information */}
-                {profile?.attendance && (
+                {/* Placement Information */}
+                {profile?.placementStatus && profile.placementStatus !== 'Not Placed' && (
                   <div className="card border-0 shadow-sm mt-4">
                     <div className="card-header bg-light">
                       <h6 className="mb-0">
-                        <i className="fas fa-calendar-check me-2"></i>
-                        Attendance Summary
+                        <i className="fas fa-briefcase me-2"></i>
+                        Placement Details
                       </h6>
                     </div>
                     <div className="card-body">
                       <div className="row">
                         <div className="col-md-4">
                           <div className="text-center">
-                            <div className="h3 text-info">{profile?.attendance?.percentage || 'N/A'}%</div>
-                            <small className="text-muted">Overall Attendance</small>
+                            <div className="h5 text-success">{profile?.placementStatus || 'Not Placed'}</div>
+                            <small className="text-muted">Status</small>
                           </div>
                         </div>
-                        <div className="col-md-4">
-                          <div className="text-center">
-                            <div className="h3 text-success">{profile?.attendance?.attendedClasses || 0}</div>
-                            <small className="text-muted">Days Present</small>
+                        {profile?.company && (
+                          <div className="col-md-4">
+                            <div className="text-center">
+                              <div className="h5 text-primary">{profile.company}</div>
+                              <small className="text-muted">Company</small>
+                            </div>
                           </div>
-                        </div>
-                        <div className="col-md-4">
-                          <div className="text-center">
-                            <div className="h3 text-danger">{(profile?.attendance?.totalClasses || 0) - (profile?.attendance?.attendedClasses || 0)}</div>
-                            <small className="text-muted">Days Absent</small>
+                        )}
+                        {profile?.package && (
+                          <div className="col-md-4">
+                            <div className="text-center">
+                              <div className="h5 text-info">₹{profile.package.toLocaleString()}</div>
+                              <small className="text-muted">Package (LPA)</small>
+                            </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -464,39 +430,21 @@ function Profile() {
 
                 {/* Attendance Overview */}
                 <div className="row mb-4">
-                  <div className="col-md-3">
+                  <div className="col-md-12">
                     <div className="card bg-info bg-opacity-10 border-0">
                       <div className="card-body text-center">
-                        <i className="fas fa-percentage text-info mb-2" style={{fontSize: '2rem'}}></i>
-                        <h4 className="text-info mb-1">{profile?.attendance?.percentage || 'N/A'}%</h4>
-                        <small className="text-muted">Overall Attendance</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="card bg-success bg-opacity-10 border-0">
-                      <div className="card-body text-center">
-                        <i className="fas fa-check-circle text-success mb-2" style={{fontSize: '2rem'}}></i>
-                        <h4 className="text-success mb-1">{profile?.attendance?.attendedClasses || 0}</h4>
-                        <small className="text-muted">Classes Attended</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="card bg-warning bg-opacity-10 border-0">
-                      <div className="card-body text-center">
-                        <i className="fas fa-calendar text-warning mb-2" style={{fontSize: '2rem'}}></i>
-                        <h4 className="text-warning mb-1">{profile?.attendance?.totalClasses || 0}</h4>
-                        <small className="text-muted">Total Classes</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="card bg-danger bg-opacity-10 border-0">
-                      <div className="card-body text-center">
-                        <i className="fas fa-times-circle text-danger mb-2" style={{fontSize: '2rem'}}></i>
-                        <h4 className="text-danger mb-1">{(profile?.attendance?.totalClasses || 0) - (profile?.attendance?.attendedClasses || 0)}</h4>
-                        <small className="text-muted">Classes Missed</small>
+                        <i className="fas fa-percentage text-info mb-3" style={{fontSize: '3rem'}}></i>
+                        <h2 className="text-info mb-2">{profile?.attendance?.percentage || 'N/A'}%</h2>
+                        <h5 className="text-muted mb-0">Overall Attendance</h5>
+                        <div className="mt-3">
+                          <div className="progress" style={{height: '10px'}}>
+                            <div 
+                              className="progress-bar bg-info" 
+                              role="progressbar" 
+                              style={{width: `${profile?.attendance?.percentage || 0}%`}}
+                            ></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -506,12 +454,20 @@ function Profile() {
                 <div className="card border-0 shadow-sm">
                   <div className="card-header bg-light">
                     <h6 className="mb-0">
-                      <i className="fas fa-chart-line me-2"></i>
-                      Attendance Status
+                      <i className="fas fa-info-circle me-2"></i>
+                      Attendance Information
                     </h6>
                   </div>
                   <div className="card-body">
-                    <div className="row">
+                    <p className="text-muted mb-0">
+                      Your overall attendance percentage is displayed above. 
+                      {profile?.attendance?.percentage >= 75 ? 
+                        " Great job maintaining good attendance!" : 
+                        " Please improve your attendance to meet the minimum requirement."
+                      }
+                    </p>
+                  </div>
+                </div>
                       <div className="col-md-6">
                         <div className="mb-3">
                           <label className="fw-semibold mb-2">Current Status:</label>
@@ -541,17 +497,6 @@ function Profile() {
                               (profile?.attendance?.percentage || 0) >= 85 ? 'bg-success' :
                               (profile?.attendance?.percentage || 0) >= 75 ? 'bg-warning' :
                               'bg-danger'
-                            }`}
-                            style={{width: `${profile?.attendance?.percentage || 0}%`}}
-                          >
-                            {profile?.attendance?.percentage || 0}%
-                          </div>
-                        </div>
-                        <small className="text-muted">
-                          Attendance Progress Bar
-                        </small>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -567,22 +512,61 @@ function Profile() {
 
                 {/* Fee Overview */}
                 <div className="row mb-4">
-                  <div className="col-md-3">
+                  <div className="col-md-4">
                     <div className="card bg-primary bg-opacity-10 border-0">
                       <div className="card-body text-center">
                         <i className="fas fa-rupee-sign text-primary mb-2" style={{fontSize: '2rem'}}></i>
-                        <h4 className="text-primary mb-1">₹{(profile?.feeStructure?.totalFee || 0).toLocaleString()}</h4>
+                        <h4 className="text-primary mb-1">₹{(profile?.totalFee || 0).toLocaleString()}</h4>
                         <small className="text-muted">Total Fee</small>
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-3">
+                  <div className="col-md-4">
                     <div className="card bg-success bg-opacity-10 border-0">
                       <div className="card-body text-center">
                         <i className="fas fa-check-circle text-success mb-2" style={{fontSize: '2rem'}}></i>
-                        <h4 className="text-success mb-1">₹{(profile?.feeStructure?.paidAmount || 0).toLocaleString()}</h4>
+                        <h4 className="text-success mb-1">₹{(profile?.paidAmount || 0).toLocaleString()}</h4>
                         <small className="text-muted">Amount Paid</small>
                       </div>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="card bg-danger bg-opacity-10 border-0">
+                      <div className="card-body text-center">
+                        <i className="fas fa-exclamation-triangle text-danger mb-2" style={{fontSize: '2rem'}}></i>
+                        <h4 className="text-danger mb-1">₹{((profile?.totalFee || 0) - (profile?.paidAmount || 0)).toLocaleString()}</h4>
+                        <small className="text-muted">Outstanding Amount</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Payment Progress */}
+                <div className="card border-0 shadow-sm">
+                  <div className="card-header bg-light">
+                    <h6 className="mb-0">
+                      <i className="fas fa-chart-pie me-2"></i>
+                      Payment Progress
+                    </h6>
+                  </div>
+                  <div className="card-body">
+                    <div className="progress mb-3" style={{height: '20px'}}>
+                      <div 
+                        className="progress-bar bg-success" 
+                        role="progressbar" 
+                        style={{width: `${profile?.totalFee ? (profile.paidAmount / profile.totalFee) * 100 : 0}%`}}
+                      >
+                        {profile?.totalFee ? Math.round((profile.paidAmount / profile.totalFee) * 100) : 0}%
+                      </div>
+                    </div>
+                    <p className="text-muted mb-0">
+                      {profile?.totalFee && profile?.paidAmount === profile?.totalFee ? 
+                        "✅ All fees have been paid successfully!" :
+                        `${profile?.totalFee ? Math.round((profile.paidAmount / profile.totalFee) * 100) : 0}% of total fees paid.`
+                      }
+                    </p>
+                  </div>
+                </div>
                     </div>
                   </div>
                   <div className="col-md-3">
