@@ -1,15 +1,27 @@
-// Clean and normalize the API base URL
+// Clean and normalize the API base URL with robust handling
 const cleanApiUrl = (baseUrl) => {
-  if (!baseUrl) return 'http://localhost:5000/api';
+  console.log('🔍 cleanApiUrl input:', baseUrl);
+  
+  // Fallback to production URL if environment variable is missing or malformed
+  if (!baseUrl || baseUrl === 'undefined' || baseUrl.trim() === '') {
+    console.log('⚠️ Using fallback production URL');
+    return 'https://university-backend-vert.vercel.app/api';
+  }
   
   // Remove trailing slash if present
   let cleaned = baseUrl.replace(/\/+$/, '');
+  
+  // Fix common malformations
+  if (cleaned === 'https:/university-backend-vert.vercel.app/api') {
+    cleaned = 'https://university-backend-vert.vercel.app/api';
+  }
   
   // Ensure it starts with http:// or https://
   if (!cleaned.startsWith('http://') && !cleaned.startsWith('https://')) {
     cleaned = 'https://' + cleaned.replace(/^\/+/, '');
   }
   
+  console.log('🔧 cleanApiUrl output:', cleaned);
   return cleaned;
 };
 
@@ -26,10 +38,14 @@ const getAuthHeader = () => {
   return token ? { 'Authorization': `Bearer ${token}` } : {};
 };
 
-// Build API URL with proper path joining
+// Build API URL with proper path joining and double-slash prevention
 const buildApiUrl = (path) => {
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  const finalUrl = `${API_BASE_URL}${cleanPath}`;
+  let finalUrl = `${API_BASE_URL}${cleanPath}`;
+  
+  // Remove any double slashes except for the protocol
+  finalUrl = finalUrl.replace(/([^:]\/)\/+/g, '$1');
+  
   console.log('🔧 buildApiUrl:', { input: path, cleanPath, API_BASE_URL, finalUrl });
   return finalUrl;
 };
