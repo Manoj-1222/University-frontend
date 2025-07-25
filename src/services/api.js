@@ -29,8 +29,11 @@ const cleanApiUrl = (baseUrl) => {
 console.log('🔍 Environment Debug:');
 console.log('Raw VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL);
 
-const API_BASE_URL = cleanApiUrl(import.meta.env.VITE_API_BASE_URL);
-console.log('Cleaned API_BASE_URL:', API_BASE_URL);
+// Temporary hardcoded fix for production deployment issues
+const PRODUCTION_API_URL = 'https://university-backend-vert.vercel.app/api';
+const API_BASE_URL = PRODUCTION_API_URL; // Force production URL
+
+console.log('🔧 Using hardcoded API_BASE_URL:', API_BASE_URL);
 
 // Create authentication header
 const getAuthHeader = () => {
