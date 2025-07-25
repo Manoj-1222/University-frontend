@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
@@ -118,9 +118,9 @@ function Login() {
                           Remember me
                         </label>
                       </div>
-                      <a href="/forgot-password" className="text-decoration-none">
+                      <Link to="/forgot-password" className="text-decoration-none">
                         Forgot Password?
-                      </a>
+                      </Link>
                     </div>
 
                     <button 
@@ -144,9 +144,9 @@ function Login() {
                     <div className="text-center">
                       <p className="text-muted mb-0">
                         Don't have an account? 
-                        <a href="/admissions" className="text-decoration-none ms-1 fw-semibold">
+                        <Link to="/admissions" className="text-decoration-none ms-1 fw-semibold">
                           Apply for Admission
-                        </a>
+                        </Link>
                       </p>
                     </div>
                   </Form>
