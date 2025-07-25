@@ -9,7 +9,7 @@ function Profile() {
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('personal');
   const navigate = useNavigate();
-  const { logout, user } = useAuth();
+  const { logout } = useAuth();
 
   useEffect(() => {
     fetchProfile();
@@ -52,10 +52,16 @@ function Profile() {
 
   if (error && !profile) {
     return (
-      <div className="container mt-5">
-        <div className="alert alert-danger text-center">
-          <i className="fas fa-exclamation-triangle me-2"></i>
-          {error}
+      <div className="d-flex justify-content-center align-items-center min-vh-100">
+        <div className="text-center">
+          <div className="alert alert-danger">
+            <i className="fas fa-exclamation-triangle me-2"></i>
+            {error}
+          </div>
+          <button className="btn btn-primary" onClick={fetchProfile}>
+            <i className="fas fa-refresh me-2"></i>
+            Retry
+          </button>
         </div>
       </div>
     );
@@ -100,42 +106,32 @@ function Profile() {
           <div className="card-body p-4">
             <div className="row align-items-center">
               <div className="col-md-3 text-center mb-3 mb-md-0">
-                <div className="profile-avatar mx-auto mb-3">
-                  <i className="fas fa-user-circle text-primary" style={{fontSize: '6rem'}}></i>
+                <div className="profile-avatar bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" 
+                     style={{width: '120px', height: '120px', fontSize: '3rem'}}>
+                  <i className="fas fa-user"></i>
                 </div>
-                <h5 className="mb-1">{profile?.name || 'Student'}</h5>
-                <p className="text-muted mb-0">{profile?.rollNo || 'N/A'}</p>
               </div>
-              <div className="col-md-9">
-                <div className="row g-3">
-                  <div className="col-md-3">
-                    <div className="stat-card text-center p-3 bg-primary bg-opacity-10 rounded">
-                      <i className="fas fa-graduation-cap text-primary mb-2" style={{fontSize: '1.5rem'}}></i>
-                      <div className="h4 mb-1 text-primary">{profile?.academic?.currentCGPA || 'N/A'}</div>
-                      <small className="text-muted">Current CGPA</small>
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="stat-card text-center p-3 bg-success bg-opacity-10 rounded">
-                      <i className="fas fa-book text-success mb-2" style={{fontSize: '1.5rem'}}></i>
-                      <div className="h4 mb-1 text-success">{profile?.academic?.totalCredits || 0}</div>
-                      <small className="text-muted">Total Credits</small>
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="stat-card text-center p-3 bg-info bg-opacity-10 rounded">
-                      <i className="fas fa-calendar-check text-info mb-2" style={{fontSize: '1.5rem'}}></i>
-                      <div className="h4 mb-1 text-info">{profile?.attendance?.percentage || 'N/A'}%</div>
-                      <small className="text-muted">Attendance</small>
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="stat-card text-center p-3 bg-warning bg-opacity-10 rounded">
-                      <i className="fas fa-exclamation-triangle text-warning mb-2" style={{fontSize: '1.5rem'}}></i>
-                      <div className="h4 mb-1 text-warning">{profile?.academic?.backlogs || 0}</div>
-                      <small className="text-muted">Backlogs</small>
-                    </div>
-                  </div>
+              <div className="col-md-6">
+                <h2 className="mb-2">{profile?.name || 'Student Name'}</h2>
+                <p className="text-muted mb-2">
+                  <i className="fas fa-id-card me-2"></i>
+                  Roll No: <strong>{profile?.rollNo || 'N/A'}</strong>
+                </p>
+                <p className="text-muted mb-2">
+                  <i className="fas fa-envelope me-2"></i>
+                  {profile?.email || 'N/A'}
+                </p>
+                <p className="text-muted mb-0">
+                  <i className="fas fa-building me-2"></i>
+                  {profile?.department || 'N/A'} - Year {profile?.year || 'N/A'}
+                </p>
+              </div>
+              <div className="col-md-3 text-center">
+                <div className="h4 mb-1 text-success">{profile?.currentCGPA || 'N/A'}</div>
+                <small className="text-muted">Current CGPA</small>
+                <div className="mt-2">
+                  <div className="h4 mb-1 text-info">{profile?.totalCredits || 0}</div>
+                  <small className="text-muted">Total Credits</small>
                 </div>
               </div>
             </div>
@@ -182,24 +178,6 @@ function Profile() {
                   Fees
                 </button>
               </li>
-              <li className="nav-item">
-                <button
-                  className={`nav-link ${activeTab === 'timetable' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('timetable')}
-                >
-                  <i className="fas fa-calendar-alt me-2"></i>
-                  Timetable
-                </button>
-              </li>
-              <li className="nav-item">
-                <button
-                  className={`nav-link ${activeTab === 'additional' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('additional')}
-                >
-                  <i className="fas fa-info-circle me-2"></i>
-                  Additional Info
-                </button>
-              </li>
             </ul>
           </div>
 
@@ -232,9 +210,6 @@ function Profile() {
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="row">
                   <div className="col-md-6 mb-3">
                     <div className="card bg-light border-0">
                       <div className="card-body">
@@ -255,9 +230,6 @@ function Profile() {
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="row">
                   <div className="col-md-6 mb-3">
                     <div className="card bg-light border-0">
                       <div className="card-body">
@@ -274,15 +246,12 @@ function Profile() {
                     <div className="card bg-light border-0">
                       <div className="card-body">
                         <h6 className="card-title text-primary mb-2">
-                          <i className="fas fa-venus-mars me-2"></i>Gender
+                          <i className="fas fa-tint me-2"></i>Blood Group
                         </h6>
-                        <p className="card-text h5 mb-0">{profile?.gender || 'Not Specified'}</p>
+                        <p className="card-text h5 mb-0">{profile?.bloodGroup || 'Not Available'}</p>
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="row">
                   <div className="col-md-6 mb-3">
                     <div className="card bg-light border-0">
                       <div className="card-body">
@@ -306,29 +275,6 @@ function Profile() {
                     </div>
                   </div>
                 </div>
-
-                <div className="row">
-                  <div className="col-md-6 mb-3">
-                    <div className="card bg-light border-0">
-                      <div className="card-body">
-                        <h6 className="card-title text-primary mb-2">
-                          <i className="fas fa-tint me-2"></i>Blood Group
-                        </h6>
-                        <p className="card-text h5 mb-0">{profile?.bloodGroup || 'Not Available'}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <div className="card bg-light border-0">
-                      <div className="card-body">
-                        <h6 className="card-title text-primary mb-2">
-                          <i className="fas fa-briefcase me-2"></i>Placement Status
-                        </h6>
-                        <p className="card-text h5 mb-0">{profile?.placementStatus || 'Not Placed'}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             )}
 
@@ -340,7 +286,6 @@ function Profile() {
                   Academic Records
                 </h5>
                 
-                {/* Academic Summary */}
                 <div className="row mb-4">
                   <div className="col-md-3">
                     <div className="card bg-primary bg-opacity-10 border-0">
@@ -379,44 +324,6 @@ function Profile() {
                     </div>
                   </div>
                 </div>
-
-                {/* Placement Information */}
-                {profile?.placementStatus && profile.placementStatus !== 'Not Placed' && (
-                  <div className="card border-0 shadow-sm mt-4">
-                    <div className="card-header bg-light">
-                      <h6 className="mb-0">
-                        <i className="fas fa-briefcase me-2"></i>
-                        Placement Details
-                      </h6>
-                    </div>
-                    <div className="card-body">
-                      <div className="row">
-                        <div className="col-md-4">
-                          <div className="text-center">
-                            <div className="h5 text-success">{profile?.placementStatus || 'Not Placed'}</div>
-                            <small className="text-muted">Status</small>
-                          </div>
-                        </div>
-                        {profile?.company && (
-                          <div className="col-md-4">
-                            <div className="text-center">
-                              <div className="h5 text-primary">{profile.company}</div>
-                              <small className="text-muted">Company</small>
-                            </div>
-                          </div>
-                        )}
-                        {profile?.package && (
-                          <div className="col-md-4">
-                            <div className="text-center">
-                              <div className="h5 text-info">₹{profile.package.toLocaleString()}</div>
-                              <small className="text-muted">Package (LPA)</small>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
             )}
 
@@ -428,7 +335,6 @@ function Profile() {
                   Attendance Details
                 </h5>
 
-                {/* Attendance Overview */}
                 <div className="row mb-4">
                   <div className="col-md-12">
                     <div className="card bg-info bg-opacity-10 border-0">
@@ -449,56 +355,6 @@ function Profile() {
                     </div>
                   </div>
                 </div>
-
-                {/* Attendance Status */}
-                <div className="card border-0 shadow-sm">
-                  <div className="card-header bg-light">
-                    <h6 className="mb-0">
-                      <i className="fas fa-info-circle me-2"></i>
-                      Attendance Information
-                    </h6>
-                  </div>
-                  <div className="card-body">
-                    <p className="text-muted mb-0">
-                      Your overall attendance percentage is displayed above. 
-                      {profile?.attendance?.percentage >= 75 ? 
-                        " Great job maintaining good attendance!" : 
-                        " Please improve your attendance to meet the minimum requirement."
-                      }
-                    </p>
-                  </div>
-                </div>
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label className="fw-semibold mb-2">Current Status:</label>
-                          <span className={`badge ms-2 fs-6 ${
-                            (profile?.attendance?.percentage || 0) >= 85 ? 'bg-success' :
-                            (profile?.attendance?.percentage || 0) >= 75 ? 'bg-warning' :
-                            'bg-danger'
-                          }`}>
-                            {profile?.attendance?.status || 'Unknown'}
-                          </span>
-                        </div>
-                        <div className="mb-3">
-                          <label className="fw-semibold mb-2">Required Minimum:</label>
-                          <span className="text-muted ms-2">75%</span>
-                        </div>
-                        <div className="mb-3">
-                          <label className="fw-semibold mb-2">Classes to Attend for 75%:</label>
-                          <span className="text-info ms-2">
-                            {Math.max(0, Math.ceil((75 * (profile?.attendance?.totalClasses || 0) / 100) - (profile?.attendance?.attendedClasses || 0)))}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="progress mb-3" style={{height: '25px'}}>
-                          <div 
-                            className={`progress-bar ${
-                              (profile?.attendance?.percentage || 0) >= 85 ? 'bg-success' :
-                              (profile?.attendance?.percentage || 0) >= 75 ? 'bg-warning' :
-                              'bg-danger'
-                  </div>
-                </div>
               </div>
             )}
 
@@ -510,7 +366,6 @@ function Profile() {
                   Fee Structure & Payments
                 </h5>
 
-                {/* Fee Overview */}
                 <div className="row mb-4">
                   <div className="col-md-4">
                     <div className="card bg-primary bg-opacity-10 border-0">
@@ -541,7 +396,6 @@ function Profile() {
                   </div>
                 </div>
 
-                {/* Payment Progress */}
                 <div className="card border-0 shadow-sm">
                   <div className="card-header bg-light">
                     <h6 className="mb-0">
@@ -554,514 +408,21 @@ function Profile() {
                       <div 
                         className="progress-bar bg-success" 
                         role="progressbar" 
-                        style={{width: `${profile?.totalFee ? (profile.paidAmount / profile.totalFee) * 100 : 0}%`}}
+                        style={{width: `${profile?.totalFee ? ((profile?.paidAmount || 0) / profile.totalFee) * 100 : 0}%`}}
                       >
-                        {profile?.totalFee ? Math.round((profile.paidAmount / profile.totalFee) * 100) : 0}%
+                        {profile?.totalFee ? Math.round(((profile?.paidAmount || 0) / profile.totalFee) * 100) : 0}%
                       </div>
                     </div>
                     <p className="text-muted mb-0">
-                      {profile?.totalFee && profile?.paidAmount === profile?.totalFee ? 
+                      {profile?.totalFee && (profile?.paidAmount || 0) === profile?.totalFee ? 
                         "✅ All fees have been paid successfully!" :
-                        `${profile?.totalFee ? Math.round((profile.paidAmount / profile.totalFee) * 100) : 0}% of total fees paid.`
+                        `${profile?.totalFee ? Math.round(((profile?.paidAmount || 0) / profile.totalFee) * 100) : 0}% of total fees paid.`
                       }
                     </p>
                   </div>
                 </div>
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="card bg-warning bg-opacity-10 border-0">
-                      <div className="card-body text-center">
-                        <i className="fas fa-clock text-warning mb-2" style={{fontSize: '2rem'}}></i>
-                        <h4 className="text-warning mb-1">₹{(profile?.feeStructure?.dueAmount || 0).toLocaleString()}</h4>
-                        <small className="text-muted">Amount Due</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="card bg-info bg-opacity-10 border-0">
-                      <div className="card-body text-center">
-                        <i className="fas fa-calendar text-info mb-2" style={{fontSize: '2rem'}}></i>
-                        <h4 className="text-info mb-1">
-                          {profile?.feeStructure?.lastPaymentDate ? 
-                            new Date(profile.feeStructure.lastPaymentDate).toLocaleDateString() : 'N/A'}
-                        </h4>
-                        <small className="text-muted">Last Payment</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Fee Breakdown */}
-                <div className="card border-0 shadow-sm mb-4">
-                  <div className="card-header bg-light">
-                    <h6 className="mb-0">
-                      <i className="fas fa-list me-2"></i>
-                      Fee Breakdown
-                    </h6>
-                  </div>
-                  <div className="card-body">
-                    <div className="row">
-                      <div className="col-md-6">
-                        <table className="table table-borderless">
-                          <tbody>
-                            <tr>
-                              <td><i className="fas fa-book text-primary me-2"></i>Tuition Fee:</td>
-                              <td className="text-end fw-semibold">₹{(profile?.feeStructure?.tuitionFee || 0).toLocaleString()}</td>
-                            </tr>
-                            <tr>
-                              <td><i className="fas fa-building text-success me-2"></i>Development Fee:</td>
-                              <td className="text-end fw-semibold">₹{(profile?.feeStructure?.developmentFee || 0).toLocaleString()}</td>
-                            </tr>
-                            <tr>
-                              <td><i className="fas fa-clipboard-check text-info me-2"></i>Exam Fee:</td>
-                              <td className="text-end fw-semibold">₹{(profile?.feeStructure?.examFee || 0).toLocaleString()}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div className="col-md-6">
-                        <table className="table table-borderless">
-                          <tbody>
-                            <tr>
-                              <td><i className="fas fa-book-open text-warning me-2"></i>Library Fee:</td>
-                              <td className="text-end fw-semibold">₹{(profile?.feeStructure?.libraryFee || 0).toLocaleString()}</td>
-                            </tr>
-                            <tr>
-                              <td><i className="fas fa-flask text-danger me-2"></i>Lab Fee:</td>
-                              <td className="text-end fw-semibold">₹{(profile?.feeStructure?.labFee || 0).toLocaleString()}</td>
-                            </tr>
-                            <tr className="border-top">
-                              <td><strong><i className="fas fa-calculator text-primary me-2"></i>Total Fee:</strong></td>
-                              <td className="text-end fw-bold text-primary">₹{(profile?.feeStructure?.totalFee || 0).toLocaleString()}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Payment Status */}
-                <div className="card border-0 shadow-sm">
-                  <div className="card-header bg-light">
-                    <h6 className="mb-0">
-                      <i className="fas fa-credit-card me-2"></i>
-                      Payment Status
-                    </h6>
-                  </div>
-                  <div className="card-body">
-                    <div className="row align-items-center">
-                      <div className="col-md-8">
-                        <div className="progress mb-3" style={{height: '25px'}}>
-                          <div 
-                            className="progress-bar bg-success"
-                            style={{width: `${((profile?.feeStructure?.paidAmount || 0) / (profile?.feeStructure?.totalFee || 1)) * 100}%`}}
-                          >
-                            {Math.round(((profile?.feeStructure?.paidAmount || 0) / (profile?.feeStructure?.totalFee || 1)) * 100)}%
-                          </div>
-                        </div>
-                        <p className="mb-0">
-                          <span className="text-success fw-semibold">₹{(profile?.feeStructure?.paidAmount || 0).toLocaleString()}</span>
-                          <span className="text-muted"> of </span>
-                          <span className="fw-semibold">₹{(profile?.feeStructure?.totalFee || 0).toLocaleString()}</span>
-                          <span className="text-muted"> paid</span>
-                        </p>
-                      </div>
-                      <div className="col-md-4 text-end">
-                        <span className={`badge fs-6 ${
-                          (profile?.feeStructure?.dueAmount || 0) === 0 ? 'bg-success' : 
-                          (profile?.feeStructure?.dueAmount || 0) > 0 ? 'bg-warning' : 'bg-danger'
-                        }`}>
-                          {(profile?.feeStructure?.dueAmount || 0) === 0 ? 'Fully Paid' : 
-                           (profile?.feeStructure?.dueAmount || 0) > 0 ? 'Partially Paid' : 'Overdue'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             )}
-
-            {/* Timetable Tab */}
-            {activeTab === 'timetable' && (
-              <div>
-                <h5 className="mb-4">
-                  <i className="fas fa-calendar-alt me-2 text-primary"></i>
-                  Weekly Timetable
-                </h5>
-
-                {/* Timetable Display */}
-                <div className="card border-0 shadow-sm">
-                  <div className="card-header bg-light">
-                    <h6 className="mb-0">
-                      <i className="fas fa-clock me-2"></i>
-                      Class Schedule - Semester {profile?.semester || 'N/A'}
-                    </h6>
-                  </div>
-                  <div className="card-body p-0">
-                    <div className="table-responsive">
-                      <table className="table table-bordered mb-0">
-                        <thead className="table-primary">
-                          <tr>
-                            <th style={{width: '12%'}}>Time</th>
-                            <th style={{width: '17.6%'}}>Monday</th>
-                            <th style={{width: '17.6%'}}>Tuesday</th>
-                            <th style={{width: '17.6%'}}>Wednesday</th>
-                            <th style={{width: '17.6%'}}>Thursday</th>
-                            <th style={{width: '17.6%'}}>Friday</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {/* Sample timetable data - you can make this dynamic */}
-                          <tr>
-                            <td className="fw-semibold bg-light">9:00-10:00</td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-primary">Data Structures</strong><br/>
-                                <span className="text-muted">CS301 | Dr. Rajesh Kumar</span><br/>
-                                <span className="badge bg-info">CSE-101</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-success">Algorithm Analysis</strong><br/>
-                                <span className="text-muted">CS305 | Dr. Suresh Reddy</span><br/>
-                                <span className="badge bg-info">CSE-104</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-primary">Data Structures</strong><br/>
-                                <span className="text-muted">CS301 | Dr. Rajesh Kumar</span><br/>
-                                <span className="badge bg-info">CSE-101</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-warning">Algorithm Analysis</strong><br/>
-                                <span className="text-muted">CS305 | Dr. Suresh Reddy</span><br/>
-                                <span className="badge bg-secondary">Tutorial</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-danger">Data Structures Lab</strong><br/>
-                                <span className="text-muted">CS301 | Dr. Rajesh Kumar</span><br/>
-                                <span className="badge bg-danger">Lab</span>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="fw-semibold bg-light">10:00-11:00</td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-info">Computer Networks</strong><br/>
-                                <span className="text-muted">CS302 | Prof. Anita Sharma</span><br/>
-                                <span className="badge bg-info">CSE-102</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-primary">Operating Systems</strong><br/>
-                                <span className="text-muted">CS306 | Prof. Kavitha Rao</span><br/>
-                                <span className="badge bg-info">CSE-105</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-danger">Networks Lab</strong><br/>
-                                <span className="text-muted">CS302 | Prof. Anita Sharma</span><br/>
-                                <span className="badge bg-danger">Lab</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-danger">OS Lab</strong><br/>
-                                <span className="text-muted">CS306 | Prof. Kavitha Rao</span><br/>
-                                <span className="badge bg-danger">Lab</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-warning">Networks Tutorial</strong><br/>
-                                <span className="text-muted">CS302 | Prof. Anita Sharma</span><br/>
-                                <span className="badge bg-secondary">Tutorial</span>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="fw-semibold bg-light">11:30-12:30</td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-danger">Database Lab</strong><br/>
-                                <span className="text-muted">CS303 | Dr. Vikram Singh</span><br/>
-                                <span className="badge bg-danger">Lab</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-danger">Web Tech Lab</strong><br/>
-                                <span className="text-muted">CS307 | Dr. Amit Gupta</span><br/>
-                                <span className="badge bg-danger">Lab</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-success">Database Systems</strong><br/>
-                                <span className="text-muted">CS303 | Dr. Vikram Singh</span><br/>
-                                <span className="badge bg-info">CSE-102</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-info">Web Technologies</strong><br/>
-                                <span className="text-muted">CS307 | Dr. Amit Gupta</span><br/>
-                                <span className="badge bg-info">CSE-107</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-success">Database Systems</strong><br/>
-                                <span className="text-muted">CS303 | Dr. Vikram Singh</span><br/>
-                                <span className="badge bg-info">CSE-103</span>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="fw-semibold bg-light">2:00-3:00</td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-warning">Software Engineering</strong><br/>
-                                <span className="text-muted">CS304 | Prof. Meera Patel</span><br/>
-                                <span className="badge bg-info">CSE-103</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-warning">Machine Learning</strong><br/>
-                                <span className="text-muted">CS308 | Prof. Priya Nair</span><br/>
-                                <span className="badge bg-secondary">Tutorial</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-danger">Software Eng Lab</strong><br/>
-                                <span className="text-muted">CS304 | Prof. Meera Patel</span><br/>
-                                <span className="badge bg-danger">Lab</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-info">Machine Learning</strong><br/>
-                                <span className="text-muted">CS308 | Prof. Priya Nair</span><br/>
-                                <span className="badge bg-info">CSE-106</span>
-                              </div>
-                            </td>
-                            <td className="p-2">
-                              <div className="small">
-                                <strong className="text-danger">Project Work</strong><br/>
-                                <span className="text-muted">CS309 | Dr. Rajesh Kumar</span><br/>
-                                <span className="badge bg-danger">Lab</span>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Legend */}
-                <div className="mt-3">
-                  <small className="text-muted">
-                    <span className="badge bg-info me-2">Lecture</span>
-                    <span className="badge bg-danger me-2">Lab</span>
-                    <span className="badge bg-secondary me-2">Tutorial</span>
-                  </small>
-                </div>
-              </div>
-            )}
-
-            {/* Additional Information Tab */}
-            {activeTab === 'additional' && (
-              <div>
-                <h5 className="mb-4">
-                  <i className="fas fa-info-circle me-2 text-primary"></i>
-                  Additional Information
-                </h5>
-
-                <div className="row">
-                  {/* Activities & Achievements */}
-                  <div className="col-md-6 mb-4">
-                    <div className="card border-0 shadow-sm h-100">
-                      <div className="card-header bg-light">
-                        <h6 className="mb-0">
-                          <i className="fas fa-trophy me-2 text-warning"></i>
-                          Activities & Achievements
-                        </h6>
-                      </div>
-                      <div className="card-body">
-                        {profile?.activities && profile.activities.length > 0 ? (
-                          <ul className="list-unstyled">
-                            {profile.activities.map((activity, index) => (
-                              <li key={index} className="mb-2">
-                                <i className="fas fa-medal text-warning me-2"></i>
-                                <strong>{activity.title}</strong>
-                                {activity.description && (
-                                  <div className="text-muted small ms-3">{activity.description}</div>
-                                )}
-                              </li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <p className="text-muted mb-0">No activities recorded</p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Placement Information */}
-                  <div className="col-md-6 mb-4">
-                    <div className="card border-0 shadow-sm h-100">
-                      <div className="card-header bg-light">
-                        <h6 className="mb-0">
-                          <i className="fas fa-briefcase me-2 text-success"></i>
-                          Placement Status
-                        </h6>
-                      </div>
-                      <div className="card-body">
-                        {profile?.placements ? (
-                          <div>
-                            <div className="mb-3">
-                              <span className={`badge ${profile.placements.placementStatus === 'Placed' ? 'bg-success' : 
-                                profile.placements.placementStatus === 'In Process' ? 'bg-warning' : 'bg-secondary'} fs-6`}>
-                                {profile.placements.placementStatus}
-                              </span>
-                            </div>
-                            {profile.placements.company && (
-                              <p className="mb-2">
-                                <strong>Company:</strong> {profile.placements.company}
-                              </p>
-                            )}
-                            {profile.placements.package && (
-                              <p className="mb-2">
-                                <strong>Package:</strong> ₹{profile.placements.package} LPA
-                              </p>
-                            )}
-                          </div>
-                        ) : (
-                          <p className="text-muted mb-0">No placement information available</p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row">
-                  {/* Library Information */}
-                  <div className="col-md-6 mb-4">
-                    <div className="card border-0 shadow-sm h-100">
-                      <div className="card-header bg-light">
-                        <h6 className="mb-0">
-                          <i className="fas fa-book-open me-2 text-info"></i>
-                          Library Records
-                        </h6>
-                      </div>
-                      <div className="card-body">
-                        {profile?.library ? (
-                          <div>
-                            <p className="mb-2">
-                              <strong>Books Issued:</strong> {profile.library.booksIssued || 0}
-                            </p>
-                            <p className="mb-2">
-                              <strong>Books Returned:</strong> {profile.library.booksReturned || 0}
-                            </p>
-                            <p className="mb-0">
-                              <strong>Fine Pending:</strong> ₹{profile.library.fineAmount || 0}
-                            </p>
-                          </div>
-                        ) : (
-                          <p className="text-muted mb-0">No library records available</p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Hostel Information */}
-                  <div className="col-md-6 mb-4">
-                    <div className="card border-0 shadow-sm h-100">
-                      <div className="card-header bg-light">
-                        <h6 className="mb-0">
-                          <i className="fas fa-bed me-2 text-primary"></i>
-                          Hostel Information
-                        </h6>
-                      </div>
-                      <div className="card-body">
-                        {profile?.hostel ? (
-                          <div>
-                            <p className="mb-2">
-                              <strong>Status:</strong> 
-                              <span className={`badge ms-2 ${profile.hostel.allocated ? 'bg-success' : 'bg-secondary'}`}>
-                                {profile.hostel.allocated ? 'Allocated' : 'Not Allocated'}
-                              </span>
-                            </p>
-                            {profile.hostel.allocated && (
-                              <>
-                                {profile.hostel.blockName && (
-                                  <p className="mb-2">
-                                    <strong>Block:</strong> {profile.hostel.blockName}
-                                  </p>
-                                )}
-                                {profile.hostel.roomNumber && (
-                                  <p className="mb-0">
-                                    <strong>Room:</strong> {profile.hostel.roomNumber}
-                                  </p>
-                                )}
-                              </>
-                            )}
-                          </div>
-                        ) : (
-                          <p className="text-muted mb-0">No hostel information available</p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Recent Activity Card */}
-        <div className="card border-0 shadow-lg mt-4">
-          <div className="card-header bg-light">
-            <h5 className="mb-0">
-              <i className="fas fa-history me-2 text-primary"></i>
-              Recent Activity
-            </h5>
-          </div>
-          <div className="card-body">
-            <div className="d-flex align-items-center mb-3">
-              <div className="activity-icon me-3">
-                <i className="fas fa-sign-in-alt text-success"></i>
-              </div>
-              <div>
-                <div className="fw-semibold">Last Login</div>
-                <small className="text-muted">
-                  {user?.loginTime ? new Date(user.loginTime).toLocaleString() : 'Welcome back!'}
-                </small>
-              </div>
-            </div>
-            <div className="d-flex align-items-center">
-              <div className="activity-icon me-3">
-                <i className="fas fa-user-edit text-info"></i>
-              </div>
-              <div>
-                <div className="fw-semibold">Profile Created</div>
-                <small className="text-muted">Welcome to EduVerse University!</small>
-              </div>
-            </div>
           </div>
         </div>
       </div>

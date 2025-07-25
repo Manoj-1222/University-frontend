@@ -123,7 +123,7 @@ function Navbar() {
                   <li>
                     <NavLink className="dropdown-item py-2" to="/profile">
                       <i className="fas fa-user-edit me-2 text-info"></i>
-                      Edit Profile
+                      View Profile
                     </NavLink>
                   </li>
                   <li><hr className="dropdown-divider" /></li>
