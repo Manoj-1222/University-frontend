@@ -144,38 +144,26 @@ function Profile() {
             background: 'linear-gradient(135deg, var(--primary-color) 0%, rgba(15, 42, 92, 0.9) 100%)',
             padding: '1.5rem 1rem'
           }}>
-            <ul className="nav nav-tabs card-header-tabs border-0">
+            <ul className="nav nav-tabs card-header-tabs border-0" style={{color: '#ffffff !important'}}>
               <li className="nav-item">
                 <button
                   className={`nav-link border-0 fw-bold ${activeTab === 'personal' ? 'active' : ''}`}
                   onClick={() => setActiveTab('personal')}
                   style={{
                     color: '#ffffff !important',
-                    backgroundColor: activeTab === 'personal' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.1)',
+                    backgroundColor: activeTab === 'personal' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 0.1)',
                     borderRadius: '10px 10px 0 0',
-                    transition: 'all 0.3s ease',
+                    transition: 'background-color 0.3s ease',
                     padding: '12px 20px',
                     fontSize: '1rem',
-                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)',
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)',
                     boxShadow: activeTab === 'personal' ? '0 4px 8px rgba(0, 0, 0, 0.1)' : 'none',
                     fontWeight: '700',
                     border: '1px solid rgba(255, 255, 255, 0.3)'
                   }}
-                  onMouseEnter={(e) => {
-                    if (activeTab !== 'personal') {
-                      e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-                      e.target.style.color = '#ffffff';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (activeTab !== 'personal') {
-                      e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-                      e.target.style.color = '#ffffff';
-                    }
-                  }}
                 >
-                  <i className="fas fa-user me-2" style={{color: '#ffffff !important'}}></i>
-                  <span style={{color: '#ffffff !important'}}>Personal Info</span>
+                  <i className="fas fa-user me-2" style={{color: '#ffffff !important', textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)'}}></i>
+                  <span style={{color: '#ffffff !important', textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)'}}>Personal Info</span>
                 </button>
               </li>
               <li className="nav-item">
@@ -184,31 +172,19 @@ function Profile() {
                   onClick={() => setActiveTab('academic')}
                   style={{
                     color: '#ffffff !important',
-                    backgroundColor: activeTab === 'academic' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.1)',
+                    backgroundColor: activeTab === 'academic' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 0.1)',
                     borderRadius: '10px 10px 0 0',
-                    transition: 'all 0.3s ease',
+                    transition: 'background-color 0.3s ease',
                     padding: '12px 20px',
                     fontSize: '1rem',
-                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)',
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)',
                     boxShadow: activeTab === 'academic' ? '0 4px 8px rgba(0, 0, 0, 0.1)' : 'none',
                     fontWeight: '700',
                     border: '1px solid rgba(255, 255, 255, 0.3)'
                   }}
-                  onMouseEnter={(e) => {
-                    if (activeTab !== 'academic') {
-                      e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-                      e.target.style.color = '#ffffff';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (activeTab !== 'academic') {
-                      e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-                      e.target.style.color = '#ffffff';
-                    }
-                  }}
                 >
-                  <i className="fas fa-graduation-cap me-2" style={{color: '#ffffff !important'}}></i>
-                  <span style={{color: '#ffffff !important'}}>Academic Records</span>
+                  <i className="fas fa-graduation-cap me-2" style={{color: '#ffffff !important', textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)'}}></i>
+                  <span style={{color: '#ffffff !important', textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)'}}>Academic Records</span>
                 </button>
               </li>
               <li className="nav-item">
@@ -217,31 +193,19 @@ function Profile() {
                   onClick={() => setActiveTab('attendance')}
                   style={{
                     color: '#ffffff !important',
-                    backgroundColor: activeTab === 'attendance' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.1)',
+                    backgroundColor: activeTab === 'attendance' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 0.1)',
                     borderRadius: '10px 10px 0 0',
-                    transition: 'all 0.3s ease',
+                    transition: 'background-color 0.3s ease',
                     padding: '12px 20px',
                     fontSize: '1rem',
-                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)',
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)',
                     boxShadow: activeTab === 'attendance' ? '0 4px 8px rgba(0, 0, 0, 0.1)' : 'none',
                     fontWeight: '700',
                     border: '1px solid rgba(255, 255, 255, 0.3)'
                   }}
-                  onMouseEnter={(e) => {
-                    if (activeTab !== 'attendance') {
-                      e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-                      e.target.style.color = '#ffffff';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (activeTab !== 'attendance') {
-                      e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-                      e.target.style.color = '#ffffff';
-                    }
-                  }}
                 >
-                  <i className="fas fa-calendar-check me-2" style={{color: '#ffffff !important'}}></i>
-                  <span style={{color: '#ffffff !important'}}>Attendance</span>
+                  <i className="fas fa-calendar-check me-2" style={{color: '#ffffff !important', textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)'}}></i>
+                  <span style={{color: '#ffffff !important', textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)'}}>Attendance</span>
                 </button>
               </li>
               <li className="nav-item">
@@ -250,31 +214,19 @@ function Profile() {
                   onClick={() => setActiveTab('fees')}
                   style={{
                     color: '#ffffff !important',
-                    backgroundColor: activeTab === 'fees' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.1)',
+                    backgroundColor: activeTab === 'fees' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 0.1)',
                     borderRadius: '10px 10px 0 0',
-                    transition: 'all 0.3s ease',
+                    transition: 'background-color 0.3s ease',
                     padding: '12px 20px',
                     fontSize: '1rem',
-                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)',
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)',
                     boxShadow: activeTab === 'fees' ? '0 4px 8px rgba(0, 0, 0, 0.1)' : 'none',
                     fontWeight: '700',
                     border: '1px solid rgba(255, 255, 255, 0.3)'
                   }}
-                  onMouseEnter={(e) => {
-                    if (activeTab !== 'fees') {
-                      e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-                      e.target.style.color = '#ffffff';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (activeTab !== 'fees') {
-                      e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-                      e.target.style.color = '#ffffff';
-                    }
-                  }}
                 >
-                  <i className="fas fa-money-bill-wave me-2" style={{color: '#ffffff !important'}}></i>
-                  <span style={{color: '#ffffff !important'}}>Fees</span>
+                  <i className="fas fa-money-bill-wave me-2" style={{color: '#ffffff !important', textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)'}}></i>
+                  <span style={{color: '#ffffff !important', textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)'}}>Fees</span>
                 </button>
               </li>
             </ul>
@@ -525,6 +477,27 @@ function Profile() {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        .nav-tabs .nav-link {
+          color: #ffffff !important;
+        }
+        .nav-tabs .nav-link * {
+          color: #ffffff !important;
+        }
+        .nav-tabs .nav-link i {
+          color: #ffffff !important;
+        }
+        .nav-tabs .nav-link span {
+          color: #ffffff !important;
+        }
+        .nav-tabs .nav-link.active {
+          color: #ffffff !important;
+        }
+        .nav-tabs .nav-link.active * {
+          color: #ffffff !important;
+        }
+      `}</style>
     </div>
   );
 }
