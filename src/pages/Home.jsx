@@ -39,13 +39,6 @@ function Home() {
     }
   ];
 
-  const achievements = [
-    { number: '10,000+', label: 'Students' },
-    { number: '500+', label: 'Faculty' },
-    { number: '95%', label: 'Placement Rate' },
-    { number: '150+', label: 'Programs' }
-  ];
-
   return (
     <div 
       className={`fade-in ${isVisible ? 'visible' : ''}`}
@@ -71,10 +64,54 @@ function Home() {
             <div className="carousel-caption d-md-block">
               <div className="hero-content">
                 <h1 className="display-4 fw-bold mb-3 text-contrast">Welcome to COE University</h1>
-                <p className="lead mb-4 text-contrast">Shaping tomorrow's leaders through excellence in education and innovation</p>
-                <button className="btn btn-light btn-lg px-5 py-3 rounded-pill" onClick={handleApplyNow}>
+                <p className="lead mb-4 text-contrast">Excellence in Education • Innovation • Character Development</p>
+                <div className="hero-stats mb-4">
+                  <div className="row text-center">
+                    <div className="col-4">
+                      <div className="stat-item">
+                        <h3 className="text-contrast fw-bold">50+</h3>
+                        <small className="text-contrast">Years of Excellence</small>
+                      </div>
+                    </div>
+                    <div className="col-4">
+                      <div className="stat-item">
+                        <h3 className="text-contrast fw-bold">10K+</h3>
+                        <small className="text-contrast">Alumni Worldwide</small>
+                      </div>
+                    </div>
+                    <div className="col-4">
+                      <div className="stat-item">
+                        <h3 className="text-contrast fw-bold">95%</h3>
+                        <small className="text-contrast">Placement Rate</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button 
+                  className="btn btn-lg px-5 py-3 rounded-pill me-3" 
+                  onClick={handleApplyNow}
+                  style={{
+                    background: 'linear-gradient(135deg, #c8aa6e, #b8860b)',
+                    color: 'white',
+                    fontWeight: '700',
+                    border: 'none',
+                    boxShadow: '0 6px 20px rgba(200, 170, 110, 0.4)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}
+                >
                   <i className="fas fa-graduation-cap me-2"></i>
-                  Start Your Journey
+                  Apply Now
+                </button>
+                <button 
+                  className="btn btn-outline-light btn-lg px-5 py-3 rounded-pill"
+                  style={{
+                    borderWidth: '2px',
+                    fontWeight: '600'
+                  }}
+                >
+                  <i className="fas fa-play-circle me-2"></i>
+                  Virtual Tour
                 </button>
               </div>
             </div>
@@ -120,13 +157,69 @@ function Home() {
       {/* Quick Apply Section */}
       <div className="text-center mb-5">
         <div className="apply-now-section p-5 rounded-3" style={{
-          color: '#1f2937'
+          background: 'linear-gradient(135deg, rgba(248, 249, 250, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%)',
+          border: '2px solid rgba(15, 42, 92, 0.1)',
+          boxShadow: '0 10px 30px rgba(15, 42, 92, 0.15)'
         }}>
-          <h3 className="mb-3 fw-bold text-primary">Ready to Begin Your Journey?</h3>
-          <p className="mb-4 lead text-secondary">Join thousands of students who have transformed their lives at COE University</p>
-          <button className="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg" onClick={handleApplyNow}>
-            <i className="fas fa-rocket me-2"></i>
-            Apply Now - Fast Track
+          <h3 className="mb-3 fw-bold" style={{color: 'var(--primary-color)'}}>Ready to Shape Your Future?</h3>
+          <p className="mb-4 lead text-muted">Join a legacy of excellence at COE University - Where Leaders Are Made</p>
+          <div className="row text-center mb-4">
+            <div className="col-md-3 col-6 mb-3">
+              <div className="achievement-stat">
+                <h4 className="fw-bold mb-1" style={{color: 'var(--primary-color)'}}>50+</h4>
+                <small className="text-muted">Years of Legacy</small>
+              </div>
+            </div>
+            <div className="col-md-3 col-6 mb-3">
+              <div className="achievement-stat">
+                <h4 className="fw-bold mb-1" style={{color: 'var(--primary-color)'}}>200+</h4>
+                <small className="text-muted">Expert Faculty</small>
+              </div>
+            </div>
+            <div className="col-md-3 col-6 mb-3">
+              <div className="achievement-stat">
+                <h4 className="fw-bold mb-1" style={{color: 'var(--primary-color)'}}>15K+</h4>
+                <small className="text-muted">Proud Alumni</small>
+              </div>
+            </div>
+            <div className="col-md-3 col-6 mb-3">
+              <div className="achievement-stat">
+                <h4 className="fw-bold mb-1" style={{color: 'var(--primary-color)'}}>98%</h4>
+                <small className="text-muted">Success Rate</small>
+              </div>
+            </div>
+          </div>
+          <button 
+            className="btn btn-lg px-5 py-3 rounded-pill me-3" 
+            onClick={handleApplyNow}
+            style={{
+              background: 'var(--academic-gold)',
+              color: 'white',
+              fontWeight: '700',
+              border: 'none',
+              boxShadow: '0 6px 20px rgba(184, 134, 11, 0.4)',
+              textTransform: 'uppercase',
+              letterSpacing: '1px'
+            }}
+          >
+            <i className="fas fa-graduation-cap me-2"></i>
+            Apply for Admission
+          </button>
+          <button 
+            className="btn btn-lg px-5 py-3 rounded-pill"
+            onClick={() => navigate('/about')}
+            style={{
+              background: 'transparent',
+              color: 'var(--primary-color)',
+              border: '2px solid var(--primary-color)',
+              fontWeight: '600',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+              transition: 'all 0.3s ease'
+            }}
+          >
+            <i className="fas fa-info-circle me-2"></i>
+            Learn More
           </button>
         </div>
       </div>
@@ -134,12 +227,19 @@ function Home() {
       <div className="row mb-5">
         {features.map((feature, index) => (
           <div key={index} className="col-md-4 mb-4">
-            <div className="card h-100 border-0 shadow-sm feature-card">
+            <div className="card h-100 border-0 shadow-sm feature-card" style={{
+              transition: 'all 0.3s ease',
+              border: '1px solid rgba(15, 42, 92, 0.1) !important'
+            }}>
               <div className="card-body text-center p-4">
-                <div className={`feature-icon mb-3 ${feature.color}`}>
+                <div className="feature-icon mb-3" style={{
+                  fontSize: '3rem',
+                  color: 'var(--primary-color)',
+                  marginBottom: '1.5rem'
+                }}>
                   <i className={feature.icon}></i>
                 </div>
-                <h4 className="card-title mb-3">{feature.title}</h4>
+                <h4 className="card-title mb-3 institutional-text fw-bold">{feature.title}</h4>
                 <p className="card-text text-muted">{feature.description}</p>
               </div>
             </div>
@@ -150,20 +250,33 @@ function Home() {
       {/* Statistics Section */}
       <div className="row mb-5">
         <div className="col-12">
-          <div className="stats-section p-5 rounded-3 text-center" style={{
-            background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-            color: 'white'
-          }}>
-            <h3 className="mb-5">Our Achievements</h3>
+          <div className="stats-section p-5 rounded-3 text-center institutional-header">
+            <h3 className="mb-5 text-white fw-bold">Excellence in Numbers</h3>
             <div className="row">
-              {achievements.map((stat, index) => (
-                <div key={index} className="col-md-3 col-6 mb-3">
-                  <div className="stat-item">
-                    <h2 className="display-6 fw-bold mb-2">{stat.number}</h2>
-                    <p className="mb-0 fs-5">{stat.label}</p>
-                  </div>
+              <div className="col-md-3 col-6 mb-4">
+                <div className="achievement-stat">
+                  <h2 className="text-white fw-bold mb-2">50+</h2>
+                  <p className="text-white opacity-90 mb-0">Years of Educational Excellence</p>
                 </div>
-              ))}
+              </div>
+              <div className="col-md-3 col-6 mb-4">
+                <div className="achievement-stat">
+                  <h2 className="text-white fw-bold mb-2">15,000+</h2>
+                  <p className="text-white opacity-90 mb-0">Students Graduated</p>
+                </div>
+              </div>
+              <div className="col-md-3 col-6 mb-4">
+                <div className="achievement-stat">
+                  <h2 className="text-white fw-bold mb-2">200+</h2>
+                  <p className="text-white opacity-90 mb-0">Expert Faculty Members</p>
+                </div>
+              </div>
+              <div className="col-md-3 col-6 mb-4">
+                <div className="achievement-stat">
+                  <h2 className="text-white fw-bold mb-2">98%</h2>
+                  <p className="text-white opacity-90 mb-0">Graduate Success Rate</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -172,40 +285,55 @@ function Home() {
       {/* Mission, Vision, Values Section */}
       <div className="row mb-5">
         <div className="col-md-4 mb-4">
-          <div className="card h-100 border-0 shadow-sm">
-            <div className="card-header bg-primary text-white text-center">
-              <i className="fas fa-bullseye fa-2x mb-2"></i>
-              <h3>Our Mission</h3>
+          <div className="card h-100 border-0 shadow-sm" style={{
+            border: '1px solid rgba(15, 42, 92, 0.15) !important',
+            transition: 'all 0.3s ease'
+          }}>
+            <div className="card-header text-center py-4 institutional-header">
+              <i className="fas fa-bullseye fa-2x text-white mb-3"></i>
+              <h5 className="text-white fw-bold mb-0">Our Mission</h5>
             </div>
-            <div className="card-body">
-              <p className="text-center">To provide quality education, foster research, and nurture innovation for a better tomorrow. We are committed to developing leaders who will shape the future.</p>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4 mb-4">
-          <div className="card h-100 border-0 shadow-sm">
-            <div className="card-header bg-success text-white text-center">
-              <i className="fas fa-eye fa-2x mb-2"></i>
-              <h3>Our Vision</h3>
-            </div>
-            <div className="card-body">
-              <p className="text-center">To be a leading university recognized for excellence in teaching, learning, and societal impact, creating a sustainable future for all.</p>
+            <div className="card-body p-4">
+              <p className="text-muted mb-0 text-center">
+                To provide world-class education that empowers students with knowledge, skills, and values 
+                necessary to excel in their chosen fields and contribute meaningfully to society.
+              </p>
             </div>
           </div>
         </div>
         <div className="col-md-4 mb-4">
-          <div className="card h-100 border-0 shadow-sm">
-            <div className="card-header bg-warning text-white text-center">
-              <i className="fas fa-heart fa-2x mb-2"></i>
-              <h3>Core Values</h3>
+          <div className="card h-100 border-0 shadow-sm" style={{
+            border: '1px solid rgba(15, 42, 92, 0.15) !important',
+            transition: 'all 0.3s ease'
+          }}>
+            <div className="card-header text-center py-4 institutional-header">
+              <i className="fas fa-eye fa-2x text-white mb-3"></i>
+              <h5 className="text-white fw-bold mb-0">Our Vision</h5>
             </div>
-            <div className="card-body">
-              <ul className="list-unstyled text-center">
-                <li className="mb-2"><i className="fas fa-check-circle text-primary me-2"></i>Integrity</li>
-                <li className="mb-2"><i className="fas fa-check-circle text-primary me-2"></i>Inclusivity</li>
-                <li className="mb-2"><i className="fas fa-check-circle text-primary me-2"></i>Innovation</li>
-                <li className="mb-2"><i className="fas fa-check-circle text-primary me-2"></i>Excellence</li>
-                <li className="mb-2"><i className="fas fa-check-circle text-primary me-2"></i>Collaboration</li>
+            <div className="card-body p-4">
+              <p className="text-muted mb-0 text-center">
+                To be a globally recognized institution of higher learning, fostering innovation, 
+                research excellence, and developing leaders who shape the future.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-4 mb-4">
+          <div className="card h-100 border-0 shadow-sm" style={{
+            border: '1px solid rgba(15, 42, 92, 0.15) !important',
+            transition: 'all 0.3s ease'
+          }}>
+            <div className="card-header text-center py-4 institutional-header">
+              <i className="fas fa-heart fa-2x text-white mb-3"></i>
+              <h5 className="text-white fw-bold mb-0">Our Values</h5>
+            </div>
+            <div className="card-body p-4">
+              <ul className="list-unstyled text-center mb-0">
+                <li className="mb-2"><i className="fas fa-check-circle me-2" style={{color: 'var(--accent-color)'}}></i>Integrity & Excellence</li>
+                <li className="mb-2"><i className="fas fa-check-circle me-2" style={{color: 'var(--accent-color)'}}></i>Innovation & Research</li>
+                <li className="mb-2"><i className="fas fa-check-circle me-2" style={{color: 'var(--accent-color)'}}></i>Inclusivity & Diversity</li>
+                <li className="mb-2"><i className="fas fa-check-circle me-2" style={{color: 'var(--accent-color)'}}></i>Social Responsibility</li>
+                <li className="mb-0"><i className="fas fa-check-circle me-2" style={{color: 'var(--accent-color)'}}></i>Global Collaboration</li>
               </ul>
             </div>
           </div>
@@ -215,73 +343,91 @@ function Home() {
       {/* Upcoming Events Section */}
       <div className="row mb-5">
         <div className="col-12">
-          <div className="card border-0 shadow-sm">
-            <div className="card-header bg-gradient text-white text-center">
-              <i className="fas fa-calendar-alt fa-2x mb-2"></i>
-              <h3>Upcoming Events</h3>
+          <div className="card border-0 shadow-sm" style={{
+            border: '1px solid rgba(15, 42, 92, 0.1) !important'
+          }}>
+            <div className="card-header text-center py-4 institutional-header">
+              <i className="fas fa-calendar-alt fa-2x mb-3 text-white"></i>
+              <h4 className="text-white fw-bold mb-0">Upcoming Events</h4>
             </div>
-            <div className="card-body">
+            <div className="card-body p-4">
               <div className="row">
                 <div className="col-md-6">
-                  <div className="event-item p-3 mb-3 rounded bg-light">
+                  <div className="event-item p-4 mb-3 rounded" style={{
+                    background: 'linear-gradient(135deg, rgba(15, 42, 92, 0.05) 0%, rgba(200, 170, 110, 0.05) 100%)',
+                    border: '1px solid rgba(15, 42, 92, 0.1)',
+                    transition: 'all 0.3s ease'
+                  }}>
                     <div className="d-flex align-items-center">
-                      <div className="event-date bg-primary text-white rounded p-2 me-3">
+                      <div className="event-date text-white rounded p-3 me-3 institutional-header">
                         <div className="text-center">
-                          <div className="fs-6">AUG</div>
-                          <div className="fs-4 fw-bold">01</div>
+                          <div className="fs-6 fw-bold">AUG</div>
+                          <div className="fs-3 fw-bold">01</div>
                         </div>
                       </div>
                       <div>
-                        <h5 className="mb-1">Orientation Program</h5>
-                        <p className="text-muted mb-0">Welcome new students to our university family</p>
+                        <h5 className="mb-2 institutional-text fw-bold">Orientation Program</h5>
+                        <p className="text-muted mb-0">Welcome new students to our academic community</p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <div className="event-item p-3 mb-3 rounded bg-light">
+                  <div className="event-item p-4 mb-3 rounded" style={{
+                    background: 'linear-gradient(135deg, rgba(15, 42, 92, 0.05) 0%, rgba(200, 170, 110, 0.05) 100%)',
+                    border: '1px solid rgba(15, 42, 92, 0.1)',
+                    transition: 'all 0.3s ease'
+                  }}>
                     <div className="d-flex align-items-center">
-                      <div className="event-date bg-success text-white rounded p-2 me-3">
+                      <div className="event-date text-white rounded p-3 me-3 institutional-header">
                         <div className="text-center">
-                          <div className="fs-6">SEP</div>
-                          <div className="fs-4 fw-bold">15</div>
+                          <div className="fs-6 fw-bold">SEP</div>
+                          <div className="fs-3 fw-bold">15</div>
                         </div>
                       </div>
                       <div>
-                        <h5 className="mb-1">Annual Sports Meet</h5>
-                        <p className="text-muted mb-0">Inter-college competitions and athletics</p>
+                        <h5 className="mb-2 institutional-text fw-bold">Academic Excellence Awards</h5>
+                        <p className="text-muted mb-0">Celebrating outstanding student achievements</p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <div className="event-item p-3 mb-3 rounded bg-light">
+                  <div className="event-item p-4 mb-3 rounded" style={{
+                    background: 'linear-gradient(135deg, rgba(15, 42, 92, 0.05) 0%, rgba(200, 170, 110, 0.05) 100%)',
+                    border: '1px solid rgba(15, 42, 92, 0.1)',
+                    transition: 'all 0.3s ease'
+                  }}>
                     <div className="d-flex align-items-center">
-                      <div className="event-date bg-warning text-white rounded p-2 me-3">
+                      <div className="event-date text-white rounded p-3 me-3 institutional-header">
                         <div className="text-center">
-                          <div className="fs-6">OCT</div>
-                          <div className="fs-4 fw-bold">10</div>
+                          <div className="fs-6 fw-bold">OCT</div>
+                          <div className="fs-3 fw-bold">10</div>
                         </div>
                       </div>
                       <div>
-                        <h5 className="mb-1">National Hackathon</h5>
-                        <p className="text-muted mb-0">48-hour coding marathon with exciting prizes</p>
+                        <h5 className="mb-2 institutional-text fw-bold">Research Symposium</h5>
+                        <p className="text-muted mb-0">Showcasing innovative research and discoveries</p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <div className="event-item p-3 mb-3 rounded bg-light">
+                  <div className="event-item p-4 mb-3 rounded" style={{
+                    background: 'linear-gradient(135deg, rgba(15, 42, 92, 0.05) 0%, rgba(200, 170, 110, 0.05) 100%)',
+                    border: '1px solid rgba(15, 42, 92, 0.1)',
+                    transition: 'all 0.3s ease'
+                  }}>
                     <div className="d-flex align-items-center">
-                      <div className="event-date bg-danger text-white rounded p-2 me-3">
+                      <div className="event-date text-white rounded p-3 me-3 institutional-header">
                         <div className="text-center">
-                          <div className="fs-6">DEC</div>
-                          <div className="fs-4 fw-bold">20</div>
+                          <div className="fs-6 fw-bold">DEC</div>
+                          <div className="fs-3 fw-bold">15</div>
                         </div>
                       </div>
                       <div>
-                        <h5 className="mb-1">Convocation</h5>
-                        <p className="text-muted mb-0">Graduation ceremony for our accomplished students</p>
+                        <h5 className="mb-2 institutional-text fw-bold">Convocation Ceremony</h5>
+                        <p className="text-muted mb-0">Graduation ceremony for our accomplished graduates</p>
                       </div>
                     </div>
                   </div>

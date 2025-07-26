@@ -13,13 +13,20 @@ function Navbar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-lg py-3" style={{ backgroundColor: '#ffffff !important', opacity: 1 }}>
+    <nav className="navbar navbar-expand-lg navbar-light navbar-professional py-3">
       <div className="container">
-        <Link className="navbar-brand fw-bold d-flex align-items-center py-1" to="/">
-          <div className="brand-icon me-2">
-            <i className="fas fa-graduation-cap text-primary"></i>
+        <Link className="navbar-brand navbar-brand-professional d-flex align-items-center py-1" to="/">
+          <div className="brand-icon me-3">
+            <i className="fas fa-graduation-cap" style={{ fontSize: '1.75rem', color: '#c8aa6e' }}></i>
           </div>
-          <span className="brand-text text-dark">COE University</span>
+          <div className="brand-text-container">
+            <span className="brand-text d-block" style={{ fontSize: '1.4rem', fontWeight: '800', color: '#0f2a5c', lineHeight: '1.1' }}>
+              COE University
+            </span>
+            <small className="brand-subtitle d-block" style={{ fontSize: '0.75rem', color: '#4a5568', fontWeight: '500', letterSpacing: '0.5px' }}>
+              Excellence in Education
+            </small>
+          </div>
         </Link>
         
         <button 
@@ -39,90 +46,105 @@ function Navbar() {
             <li className="nav-item">
               <NavLink 
                 className={({ isActive }) => 
-                  `nav-link px-2 py-2 ${isActive ? 'active' : ''}`
+                  `nav-link nav-link-professional ${isActive ? 'active' : ''}`
                 } 
                 to="/"
               >
-                <i className="fas fa-home me-1"></i>
+                <i className="fas fa-home me-2" style={{ color: '#0f2a5c' }}></i>
                 Home
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink 
                 className={({ isActive }) => 
-                  `nav-link px-2 py-2 ${isActive ? 'active' : ''}`
+                  `nav-link nav-link-professional ${isActive ? 'active' : ''}`
                 } 
                 to="/about"
               >
-                <i className="fas fa-info-circle me-1"></i>
+                <i className="fas fa-info-circle me-2" style={{ color: '#0f2a5c' }}></i>
                 About
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink 
                 className={({ isActive }) => 
-                  `nav-link px-2 py-2 ${isActive ? 'active' : ''}`
+                  `nav-link nav-link-professional ${isActive ? 'active' : ''}`
                 } 
                 to="/admissions"
               >
-                <i className="fas fa-user-plus me-1"></i>
+                <i className="fas fa-user-plus me-2" style={{ color: '#0f2a5c' }}></i>
                 Admissions
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink 
                 className={({ isActive }) => 
-                  `nav-link px-2 py-2 ${isActive ? 'active' : ''}`
+                  `nav-link nav-link-professional ${isActive ? 'active' : ''}`
                 } 
                 to="/placements"
               >
-                <i className="fas fa-briefcase me-1"></i>
+                <i className="fas fa-briefcase me-2" style={{ color: '#0f2a5c' }}></i>
                 Placements
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink 
                 className={({ isActive }) => 
-                  `nav-link px-2 py-2 ${isActive ? 'active' : ''}`
+                  `nav-link nav-link-professional ${isActive ? 'active' : ''}`
                 } 
                 to="/contact"
               >
-                <i className="fas fa-envelope me-1"></i>
+                <i className="fas fa-envelope me-2" style={{ color: '#0f2a5c' }}></i>
                 Contact
               </NavLink>
             </li>
             {!isLoggedIn ? (
               <li className="nav-item ms-3">
                 <NavLink 
-                  className="btn btn-primary px-4 py-2 rounded-pill text-decoration-none" 
+                  className="btn px-4 py-2 rounded-pill text-decoration-none" 
                   to="/login"
+                  style={{
+                    background: 'linear-gradient(135deg, #0f2a5c, #1e4d72)',
+                    color: 'white',
+                    fontWeight: '600',
+                    border: 'none',
+                    boxShadow: '0 4px 14px 0 rgba(15, 42, 92, 0.2)',
+                    transition: 'all 0.3s ease'
+                  }}
                 >
                   <i className="fas fa-sign-in-alt me-2"></i>
-                  Login
+                  Student Login
                 </NavLink>
               </li>
             ) : (
               <li className="nav-item dropdown ms-3">
                 <button 
-                  className="btn btn-outline-primary px-4 py-2 rounded-pill dropdown-toggle d-flex align-items-center text-decoration-none" 
+                  className="btn px-4 py-2 rounded-pill dropdown-toggle d-flex align-items-center text-decoration-none" 
                   type="button"
                   id="userDropdown"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
+                  style={{
+                    background: 'linear-gradient(135deg, #0f2a5c, #1e4d72)',
+                    color: 'white',
+                    fontWeight: '600',
+                    border: 'none',
+                    boxShadow: '0 4px 14px 0 rgba(15, 42, 92, 0.2)'
+                  }}
                 >
                   <i className="fas fa-user-circle me-2"></i>
-                  {user?.name || 'User'}
+                  {user?.name || 'Student'}
                 </button>
                 <ul className="dropdown-menu dropdown-menu-end mt-2 shadow-lg border-0 rounded-3" aria-labelledby="userDropdown">
                   <li>
                     <NavLink className="dropdown-item py-2" to="/dashboard">
-                      <i className="fas fa-tachometer-alt me-2 text-primary"></i>
+                      <i className="fas fa-tachometer-alt me-2" style={{ color: '#0f2a5c' }}></i>
                       Dashboard
                     </NavLink>
                   </li>
                   <li>
                     <NavLink className="dropdown-item py-2" to="/profile">
-                      <i className="fas fa-user-edit me-2 text-info"></i>
+                      <i className="fas fa-user-edit me-2" style={{ color: '#1565c0' }}></i>
                       View Profile
                     </NavLink>
                   </li>
